@@ -17,7 +17,10 @@ namespace ProgramacionGrafica
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            
+
+            //Game game = new Game(500, 500, "BTS");
+            //game.Run();
+
         }
     }
 }

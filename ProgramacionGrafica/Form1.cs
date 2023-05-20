@@ -20,7 +20,8 @@ namespace ProgramacionGrafica
         private Stage escenario;
         private Stage escenario2;
         Game game;
-        public List<Action> actions;
+        private List<Action> listaDeAcciones = new List<Action>();
+        private Script libreto;
         Dictionary<string, Stage> listaDeEscenarios = new Dictionary<string, Stage>();
 
         private float minRotate = -90f;
@@ -51,15 +52,41 @@ namespace ProgramacionGrafica
             hilo.Start();
             
             escenario = JSON.Load<Stage>("../../JSON/escenario.json");
-            escenario2 = JSON.Load<Stage>("../../JSON/escenario3.json");
-            escenario.SetCentro(new Point(25, 25, 0));
-            escenario2.SetCentro(new Point(-25, -25, 0));
-            escenario.Get("auto").SetCentro(new Point(-5, -5, 0));
-            escenario.Get("casa").SetCentro(new Point(5, 5, 0));
-            escenario2.Get("auto").SetCentro(new Point(5, 5, 0));
-            escenario2.Get("lavanda").SetCentro(new Point(-5, -5, 0));
+            escenario.Get("casa").SetCentro(new Point(0, 0, 0));
+            escenario.Get("casa").Rotate(30, 0, 1, 0);
+            escenario.SetCentro(new Point(0, 0, 0));
+            escenario.Get("auto").SetCentro(new Point(-20, -10, 0));
+            //escenario.Get("auto").Rotate(20, 0, 1, 0);
+
+            Action accion = new Action("Traslacion", -40, 0, 0, 1, 1500, 0);
+            Action accion2 = new Action("Traslacion", 20, 0, 1, 0, 4000, 1500);
+            Action accion3 = new Action("Rotacion", -90, 0, 1, 0, 3000, 4500);
+            Action accion4 = new Action("Traslacion", 40, 1, 0, 0, 3500, 6500);
+
+
+            Action accion5 = new Action("Rotacion", -90, 0, 1, 0, 3000, 9500);
+            Action accion6 = new Action("Traslacion", 4, 1, 0, 0, 2000, 10000);
+            Action accion7= new Action("Traslacion", -20, 0, 1, 0, 3500, 12000);
+            Action accion8 = new Action("Rotacion", -90, 0, 1, 0, 1500, 14500);
+            Action accion9 = new Action("Traslacion", -40, 1, 0, 0, 3500, 15500);
+            Action accion10 = new Action("Rotacion", -90, 0, 1, 0, 1500, 18000);
+
+            listaDeAcciones.Add(accion);
+            listaDeAcciones.Add(accion2);
+            listaDeAcciones.Add(accion3);
+            listaDeAcciones.Add(accion4);
+            listaDeAcciones.Add(accion5);
+            listaDeAcciones.Add(accion6);
+            listaDeAcciones.Add(accion7);
+            listaDeAcciones.Add(accion8);
+            listaDeAcciones.Add(accion9);
+            listaDeAcciones.Add(accion10);
+
+            libreto = new Script(listaDeAcciones, escenario);
+  
             listaDeEscenarios.Add("Escenario1", escenario);
-            listaDeEscenarios.Add("Escenario2", escenario2);
+
+
             setSlidersRange(0, 50);
 
             foreach (var key in listaDeEscenarios.Keys)
@@ -287,10 +314,11 @@ namespace ProgramacionGrafica
 
         private void button1_Click(object sender, EventArgs e)
         {
-            escenario.Limpiar();
-            slideX.Value = 0;
-            slideY.Value = 0;
-            slideZ.Value = 0;
+            libreto.RunScript();
+            //escenario.Limpiar();
+            //slideX.Value = 0;
+            //slideY.Value = 0;
+            //slideZ.Value = 0;
 
         }
     }
