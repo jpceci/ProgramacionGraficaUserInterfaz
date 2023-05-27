@@ -18,20 +18,5 @@ namespace ProgramacionGrafica
             this.listaDeAcciones = listaDeAcciones;
             this.escenario = escenario;
         }
-    
-    public void RunScript()
-        {
-            Object objeto = escenario.Get("auto");
-            foreach (Action accion in listaDeAcciones)
-            {
-                Timer timer = new Timer((state) =>
-                {
-                    Thread thread = new Thread(() => accion.RunAction(objeto));
-                    thread.Start();
-                }, null, accion.tiempoInicio, Timeout.Infinite);
-
-            }
-            Thread.Sleep(30000);
-        }
     }
 }
